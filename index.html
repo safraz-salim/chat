@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
 <div class="login-app">
@@ -17,14 +18,49 @@
   <div class="login-form">
     <input id="email" type="email" placeholder="Email">
     <input id="password" type="password" placeholder="Password">
+
     <button onclick="register()">Create Account</button>
     <button onclick="login()">Login</button>
+
+    <!-- Test notification button -->
+    <button onclick="testNotification()">Test Notification 🔔</button>
   </div>
 </div>
 
 <script type="module" src="js/auth.js"></script>
+
+<script>
+/* Ask notification permission when page loads */
+document.addEventListener("DOMContentLoaded", () => {
+  if ("Notification" in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        console.log("Notifications enabled");
+      } else {
+        console.log("Notifications denied");
+      }
+    });
+  }
+});
+
+/* Function to show notification */
+function showNotification(title, message) {
+  if (Notification.permission === "granted") {
+    new Notification(title, {
+      body: message,
+      icon: "https://cdn-icons-png.flaticon.com/512/733/733585.png"
+    });
+  }
+}
+
+/* Test notification */
+function testNotification() {
+  showNotification(
+    "Marlon Family Chat 💬",
+    "This is a test notification!"
+  );
+}
+</script>
+
 </body>
 </html>
-
-
-
